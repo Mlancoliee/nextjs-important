@@ -1,6 +1,4 @@
 export default function onRequest(context) {
-  const a = 0
-  a = 2
   throw new Error('test error')
   console.log('check context ', context);
   const { params, server, clientIp, geo } = context;
