@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@koa/router": "^14.0.0",
-    "@tencent/edgeone": "^1.1.19-beta.4",
     "connect-timeout": "^1.9.1",
     "express": "^5.1.0",
     "hono": "^4.10.1",
