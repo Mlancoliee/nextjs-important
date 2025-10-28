@@ -35,7 +35,7 @@ router.get('/test2', async (ctx) => {
 
 router.get('/test3', async (ctx) => {
   // 场景5：真正的无响应 - 阻止 Koa 自动发送响应
-  ctx.respond = false;
+  // ctx.respond = false;
 });
 
 router.post('/users', async (ctx) => {
