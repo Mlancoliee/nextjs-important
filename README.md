@@ -34,3 +34,41 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploy on EdgeOne
+
+This project is optimized for deployment on [EdgeOne Pages](https://pages.edgeone.ai/).
+
+### Image Optimization Configuration
+
+⚠️ **Important**: EdgeOne currently does not support Next.js's built-in Image Optimization API (`/_next/image`). When using the `<Image>` component, you must disable image optimization in `next.config.ts`:
+
+```typescript
+const nextConfig = {
+  images: {
+    unoptimized: true, // Required for EdgeOne compatibility
+    domains: ['images.pexels.com'], // Add your remote image domains
+  },
+};
+```
+
+**Why is this needed?**
+
+- **Next.js behavior**: The `<Image>` component uses `/_next/image` API for **ALL images** (both local and remote)
+- **Without unoptimized**: 
+  - Local images: `/_next/image?url=%2Fprofile.jpeg&w=640&q=75`
+  - Remote images: `/_next/image?url=https%3A%2F%2Fexample.com%2Fimage.jpg&w=640&q=75`
+- **EdgeOne limitation**: The `/_next/image` handler is not implemented, causing all images to fail
+- **Solution**: Set `unoptimized: true` to make images use their original URLs directly
+
+For detailed information about this issue and alternative solutions, see [EDGEONE_IMAGE_OPTIMIZATION.md](./EDGEONE_IMAGE_OPTIMIZATION.md).
+
+### Deployment Steps
+
+```bash
+# Build the project
+npm run build
+
+# Deploy to EdgeOne
+edgeone pages deploy
+```
